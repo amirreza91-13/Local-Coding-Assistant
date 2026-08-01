@@ -1,0 +1,295 @@
+/* ==============================
+   GLOBAL
+============================== */
+
+html, body, [class*="css"]{
+
+    background:#0B1120;
+
+    color:white;
+
+    font-family:Inter,sans-serif;
+
+}
+
+/* ==============================
+   MAIN CONTAINER
+============================== */
+
+.main{
+
+    background:
+    radial-gradient(circle at top,#18233f 0%,#0B1120 45%,#06090f 100%);
+
+}
+
+/* ==============================
+   BLOCK
+============================== */
+
+.block-container{
+
+    padding-top:35px;
+
+    max-width:1300px;
+
+}
+
+/* ==============================
+   HERO
+============================== */
+
+.hero{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.hero h1{
+
+    font-size:58px;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    background:linear-gradient(
+    90deg,
+    #00E5FF,
+    #7C5CFF,
+    #00FFA6);
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+.hero p{
+
+    color:#A5B4FC;
+
+    font-size:20px;
+
+}
+
+/* ==============================
+   SIDEBAR
+============================== */
+
+section[data-testid="stSidebar"]{
+
+    background:#111827;
+
+    border-right:1px solid #2b364d;
+
+}
+
+/* ==============================
+   CHAT
+============================== */
+
+.stChatMessage{
+
+    border-radius:22px;
+
+    padding:15px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    margin-bottom:15px;
+
+    backdrop-filter:blur(14px);
+
+}
+
+/* ==============================
+   USER MESSAGE
+============================== */
+
+.stChatMessage[data-testid="chat-message-user"]{
+
+    background:linear-gradient(
+    135deg,
+    #0066ff,
+    #00d2ff);
+
+}
+
+/* ==============================
+   AI MESSAGE
+============================== */
+
+.stChatMessage[data-testid="chat-message-assistant"]{
+
+    background:rgba(255,255,255,.05);
+
+}
+
+/* ==============================
+   BUTTON
+============================== */
+
+.stButton>button{
+
+    width:100%;
+
+    border-radius:16px;
+
+    border:none;
+
+    background:linear-gradient(
+    135deg,
+    #7C5CFF,
+    #00D4FF);
+
+    color:white;
+
+    font-weight:bold;
+
+    transition:.25s;
+
+}
+
+.stButton>button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 25px #00D4FF;
+
+}
+
+/* ==============================
+   TEXT INPUT
+============================== */
+
+textarea{
+
+    border-radius:18px!important;
+
+    background:#121A2B!important;
+
+    color:white!important;
+
+}
+
+/* ==============================
+   CHAT INPUT
+============================== */
+
+[data-testid="stChatInput"]{
+
+    border-radius:20px;
+
+}
+
+/* ==============================
+   INFO BOX
+============================== */
+
+.stAlert{
+
+    border-radius:16px;
+
+}
+
+/* ==============================
+   SELECTBOX
+============================== */
+
+div[data-baseweb="select"]{
+
+    border-radius:15px;
+
+}
+
+/* ==============================
+   SLIDER
+============================== */
+
+.stSlider{
+
+    padding-top:10px;
+
+}
+
+/* ==============================
+   IMAGE
+============================== */
+
+img{
+
+    transition:.4s;
+
+}
+
+img:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* ==============================
+   SCROLLBAR
+============================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#0B1120;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#445;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#00D4FF;
+
+}
+
+/* ==============================
+   ANIMATION
+============================== */
+
+.hero{
+
+    animation:fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}

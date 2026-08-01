@@ -1,0 +1,1 @@
+import{o as e}from"./rolldown-runtime.DAXXjFlN.js";import{r as t}from"./emotion-is-prop-valid.esm.CygBv61C.js";import{t as n}from"./useResizeObserver.C0ES3go_.js";var r=e(t(),1),i=(e=[],t=-1,i=100)=>{let{values:[a,o],elementRef:s}=n((0,r.useMemo)(()=>[`width`,`height`],[]),e,i);return{width:a||t,height:o||t,elementRef:s}};export{i as t};

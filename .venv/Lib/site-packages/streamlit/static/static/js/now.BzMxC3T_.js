@@ -1,0 +1,1 @@
+import{a as e}from"./isSymbol.CmW3dkoN.js";var t=function(){return e.Date.now()};export{t};

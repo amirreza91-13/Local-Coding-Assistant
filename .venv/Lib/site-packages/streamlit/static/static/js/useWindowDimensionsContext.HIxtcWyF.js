@@ -1,1 +1,0 @@
-import{o as e}from"./rolldown-runtime.DAXXjFlN.js";import{r as t}from"./emotion-is-prop-valid.esm.CygBv61C.js";import{t as n}from"./useRequiredContext.F4hG38Ff.js";var r=(0,e(t(),1).createContext)(null);r.displayName=`WindowDimensionsContext`;var i=()=>n(r);export{r as n,i as t};

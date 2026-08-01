@@ -1,1 +1,0 @@
-import{o as e}from"./rolldown-runtime.DAXXjFlN.js";import{r as t}from"./emotion-is-prop-valid.esm.CygBv61C.js";import{i as n,t as r}from"./UriUtil.olyUCSHN.js";var i=e(t(),1),a=e=>{let{resourceCrossOriginMode:t}=(0,i.useContext)(n);if(e)return r(t,e)};export{a as t};

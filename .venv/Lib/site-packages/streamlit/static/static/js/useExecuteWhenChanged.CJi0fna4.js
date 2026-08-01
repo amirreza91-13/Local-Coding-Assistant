@@ -1,1 +1,0 @@
-import{o as e}from"./rolldown-runtime.DAXXjFlN.js";import{r as t}from"./emotion-is-prop-valid.esm.CygBv61C.js";var n=e(t(),1),r=(e,t)=>e.length===t.length&&e.every((e,n)=>Object.is(e,t[n])),i=(e,t,i=r)=>{let[a,o]=(0,n.useState)(t);i(a,t)||(o(t),e())};export{i as n,r as t};

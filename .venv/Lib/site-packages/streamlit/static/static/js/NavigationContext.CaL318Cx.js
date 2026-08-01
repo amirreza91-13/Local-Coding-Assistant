@@ -1,1 +1,0 @@
-import{o as e}from"./rolldown-runtime.DAXXjFlN.js";import{r as t}from"./emotion-is-prop-valid.esm.CygBv61C.js";var n=(0,e(t(),1).createContext)({pageLinkBaseUrl:``,currentPageScriptHash:``,onPageChange:()=>{},navSections:[],appPages:[]});n.displayName=`NavigationContext`;export{n as t};

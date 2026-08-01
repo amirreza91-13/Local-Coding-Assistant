@@ -1,1 +1,0 @@
-import{U as e}from"./protobuf.DC2L68b9.js";var t={[e.ButtonLikeIconPosition.LEFT]:`left`,[e.ButtonLikeIconPosition.RIGHT]:`right`};function n(n){return t[n??e.ButtonLikeIconPosition.LEFT]}export{n as t};

@@ -1,1 +1,0 @@
-function e(e){return e instanceof Error?e:Error(`${e}`)}export{e as t};

@@ -1,177 +1,209 @@
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=30&duration=3000&pause=500&color=00D4FF&center=true&vCenter=true&width=700&lines=🤖+Local+Coding+Assistant;AI+Chatbot+for+Developers;Built+with+LangChain+%2B+Streamlit;Powered+by+Qwen2.5-Coder+7B" alt="Local Coding Assistant Header" />
-</p>
+ <div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Streamlit-1.35%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
-  <img src="https://img.shields.io/badge/LangChain-0.2%2B-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" />
-  <img src="https://img.shields.io/badge/Ollama-0.3%2B-000000?style=for-the-badge&logo=ollama&logoColor=white" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
-</p>
+# Local Coding Assistant
 
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=amirreza91-13&label=Visitors&color=00D4FF&style=flat-square" alt="Visitors" />
-  <img src="https://img.shields.io/github/stars/amirreza91-13/Local-Coding-Assistant?style=social" alt="Stars" />
-  <img src="https://img.shields.io/github/forks/amirreza91-13/Local-Coding-Assistant?style=social" alt="Forks" />
-</p>
+### Exploring Local LLMs for Coding Workflows
 
----
+An experimental Python project exploring a coding assistant powered by Ollama, with a terminal entry point and a Streamlit-based interface.
 
-## 🧠 About The Project
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-0B1220?style=for-the-badge)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge\&logo=streamlit\&logoColor=white)
+![Local AI](https://img.shields.io/badge/Local%20AI-06B6D4?style=for-the-badge)
 
-**Local Coding Assistant** is a fully **offline**, privacy-focused AI chatbot designed to help developers with coding questions, debugging, and code generation. Built with **LangChain** for intelligent conversation management and **Streamlit** for a modern, neon-themed UI, this assistant runs entirely on your local machine using **Ollama** and the powerful **Qwen2.5-Coder 7B** model.
-
-> 🔒 **No data ever leaves your system** – complete privacy guaranteed.
-
-<p align="center">
-  <img src="assets/logo.png" alt="Local Coding Assistant Logo" width="200" style="border-radius: 15px;" />
-</p>
-
----
-
-## ✨ Key Features
-
-| Feature | Description |
-| :--- | :--- |
-| 🔒 **100% Local & Private** | All processing happens on your machine – no external APIs, no data collection. |
-| 💻 **Coding-Focused** | Optimized for programming tasks using the Qwen2.5-Coder model. |
-| 🧠 **Smart Memory** | LangChain's `ConversationChain` maintains chat history for context-aware responses. |
-| 🎨 **Neon UI** | Custom Streamlit interface with a glowing blue theme and smooth animations. |
-| ⚡ **Lightweight** | Runs efficiently on systems with 8–16 GB RAM (CPU-only mode supported). |
-| 📁 **Structured Codebase** | Clean separation of concerns – `core/`, `ui/`, `utils/`, `assets/`. |
-
----
-
-## 🛠️ Built With
-
-<div align="center">
-
-| Python | Streamlit | LangChain | Ollama | Qwen 2.5 |
-| :---: | :---: | :---: | :---: | :---: |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="60" /> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/streamlit/streamlit-original.svg" width="60" /> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/langchain/langchain-original.svg" width="60" /> | <img src="https://ollama.com/public/ollama.png" width="60" /> | <img src="https://qwenlm.ai/assets/logo.png" width="60" /> |
+[Overview](#overview) · [Requirements](#requirements) · [Setup](#getting-started) · [Limitations](#current-limitations)
 
 </div>
 
 ---
 
-## 📁 Project Structure
+## Overview
 
+Local Coding Assistant is an experimental project for interacting with a locally hosted language model through Ollama.
+
+The repository includes:
+
+* A Python terminal entry point.
+* A Streamlit-based user interface.
+* A default model configuration using `qwen2.5-coder:3b`.
+* Local JSON-based chat-history functionality.
+
+The project explores local inference and coding-assistant workflows. Its interface and conversation-handling behavior still require validation and improvement.
+
+## Why Local Models?
+
+Local inference can offer useful development and experimentation options:
+
+* Model requests can be sent to a local inference server.
+* Model selection can be adjusted to suit available hardware.
+* A local setup can reduce reliance on a hosted inference provider.
+
+However, **local execution alone does not guarantee complete privacy or security**. Behavior depends on the model, application, logs, network configuration, and other services involved.
+
+## Architecture
+
+```text
+User
+ |
+ +---- Terminal Interface
+ |
+ +---- Streamlit Interface
+          |
+          v
+     Python Application
+          |
+          +---- Ollama API
+          |       |
+          |       v
+          |   Local Model
+          |
+          +---- Local JSON Chat History
 ```
-Local-Coding-Assistant/
-├── assets/
-│   ├── css/
-│   │   └── style.css
-│   └── logo.png
-├── core/
-│   ├── chat.py
-│   ├── confing.py
-│   ├── models.py
-│   ├── prompt.py
-│   └── session.py
-├── ui/
-│   ├── chat.py
-│   ├── header.py
-│   └── sidebar.py
-├── utils/
-│   ├── chat_storage.py
-│   ├── copier.py
-│   ├── exporter.py
-│   ├── history.py
-│   ├── regerenate.py
-│   ├── search.py
-│   ├── timer.py
-│   └── tokenizer.py
-├── .gitignore
-├── main.py
-├── requirements.txt
-└── streamlit_ollama.py
-```
 
----
+This is a conceptual representation of the intended components, not a claim that every interaction currently works correctly.
 
-## 🚀 Getting Started
+## Requirements
 
-### Prerequisites
+* Python compatible with the repository's dependencies.
+* Ollama installed and running.
+* A model supported by the local Ollama installation.
+* Sufficient memory and processing capacity for the selected model.
 
-- **Python 3.9+** installed on your system.
-- **Ollama** installed and running – [Download Ollama](https://ollama.com/download).
+Local model performance depends on model size, quantization, available RAM, CPU, GPU support, and other applications running at the same time.
 
-### Installation & Running
+## Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/amirreza91-13/Local-Coding-Assistant.git
 cd Local-Coding-Assistant
+```
 
-# 2. Create and activate a virtual environment
+### 2. Prepare Python Dependencies
+
+Create and activate a virtual environment.
+
+Windows PowerShell:
+
+```powershell
 python -m venv .venv
-# On Windows:
-.venv\Scripts\activate
-# On macOS/Linux:
-source .venv/bin/activate
+.\.venv\Scripts\Activate.ps1
+```
 
-# 3. Install dependencies
+Install dependencies using the repository's dependency file, if provided:
+
+```bash
 pip install -r requirements.txt
+```
 
-# 4. Pull the Qwen2.5-Coder model (recommended version)
-ollama pull qwen2.5-coder:7b-instruct-q4_K_M
+If the repository does not include `requirements.txt`, inspect the imports and project documentation to determine the correct dependency list.
 
-# 5. Run the Streamlit app
+### 3. Start Ollama
+
+Install Ollama using its official installation instructions and start the local service.
+
+Check whether the CLI is available:
+
+```bash
+ollama --version
+```
+
+If the project is configured to use `qwen2.5-coder:3b`, obtain the model:
+
+```bash
+ollama pull qwen2.5-coder:3b
+```
+
+Verify that the model is available:
+
+```bash
+ollama list
+```
+
+Model availability, memory requirements, and response speed depend on the local environment.
+
+### 4. Run the Terminal Interface
+
+The repository's terminal entry point is `main.py`:
+
+```bash
+python main.py
+```
+
+### 5. Run the Streamlit Interface
+
+The repository also includes `streamlit_ollama.py`:
+
+```bash
 streamlit run streamlit_ollama.py
 ```
 
-The app will open at `http://localhost:8501` in your browser.
+The interface may require fixes before it runs correctly. In particular, the existing code was found to reference CSS and logo paths that do not match the reviewed asset locations.
+
+## Configuration
+
+The reviewed terminal entry point uses the local Ollama endpoint:
+
+```text
+http://localhost:11434
+```
+
+It also defaults to the model:
+
+```text
+qwen2.5-coder:3b
+```
+
+Verify these values in the current source before changing the model or endpoint. Keep local service configuration explicit and avoid exposing the Ollama API to untrusted networks.
+
+## Current Limitations
+
+The project is experimental and needs additional validation.
+
+Areas requiring attention include:
+
+* Correcting CSS and image asset paths in the Streamlit interface.
+* Verifying chat-history persistence across interactions.
+* Checking conversation state and response rendering.
+* Handling unavailable models and Ollama connection errors.
+* Testing long conversations and unexpected model responses.
+* Documenting dependencies and supported runtime versions.
+* Adding automated tests for the main interaction flow.
+
+These are known development concerns, not a claim that every part of the application is broken.
+
+## Privacy and Security
+
+* Do not send sensitive source code or credentials to a model unless you understand the data flow.
+* Keep the Ollama service on a trusted local interface unless remote access is deliberately secured.
+* Protect saved chat-history files.
+* Review logs and persistent storage before describing the application as fully private.
+* Remember that external tools, extensions, or integrations can change where data is sent.
+
+## Future Development
+
+Potential improvements include:
+
+* A more reliable chat interface.
+* Configurable model selection.
+* Better conversation-history management.
+* Clear error messages and connection-status indicators.
+* Code-context input and file-aware workflows.
+* Tests and documentation for supported features.
+
+These are potential directions, not promises of features already implemented.
+
+## License
+
+Check the repository for a declared license before reusing or redistributing this project.
 
 ---
 
-## 🎯 Usage
+<div align="center">
 
-1. **Type your coding question** in the chat input box.
-2. The assistant will respond with helpful code snippets, explanations, or debugging tips.
-3. The conversation history is maintained for context-aware follow-up questions.
+**Experimenting with local models. Improving one workflow at a time.**
 
----
+[Repository](https://github.com/amirreza91-13/Local-Coding-Assistant)
 
-## 🧪 Troubleshooting
-
-| Issue | Solution |
-| :--- | :--- |
-| `NameError: name 'history' is not defined` | Make sure you're using `st.session_state` to manage chat history. |
-| `Error: pull model manifest: no such host` | Change your DNS to `8.8.8.8` and `1.1.1.1`, or use a VPN. |
-| Out-of-Memory (OOM) errors | Use a lighter version: `ollama pull qwen2.5-coder:7b-instruct-iq2_s`. |
-| `ModuleNotFoundError` | Ensure all dependencies are installed: `pip install -r requirements.txt`. |
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! If you have ideas for improvements or new features:
-
-1. Fork the project.
-2. Create your feature branch: `git checkout -b feature/AmazingFeature`.
-3. Commit your changes: `git commit -m 'Add some AmazingFeature'`.
-4. Push to the branch: `git push origin feature/AmazingFeature`.
-5. Open a Pull Request.
-
----
-
-## 📜 License
-
-Distributed under the **MIT License**. See `LICENSE` for more information.
-
----
-
-## 🙏 Acknowledgments
-
-- **[LangChain](https://www.langchain.com/)** – for the incredible framework.
-- **[Streamlit](https://streamlit.io/)** – for making data apps fun and easy.
-- **[Ollama](https://ollama.com/)** – for seamless local model execution.
-- **[Qwen](https://qwenlm.ai/)** – for the powerful coding model.
-
----
-
-<p align="center">
-  <b>Built with ❤️ by Amirreza</b><br>
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=00D4FF&height=120&section=footer" />
-</p>
+</div>

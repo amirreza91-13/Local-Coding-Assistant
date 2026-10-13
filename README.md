@@ -1,6 +1,5 @@
 <div align="center">
 
-<img src="assets/ollama.jpg" alt="Mirhaj AI Studio logo" width="112" />
 
 # Local Coding Assistant
 

@@ -3,7 +3,6 @@ from pathlib import Path
 
 from core.chat import ask
 from utils.chat_storage import save_chat, load_chat
-from utils.exporter import export_txt, export_json
 from utils.timer import Timer
 
 # =====================================
@@ -22,7 +21,6 @@ st.set_page_config(
 # =====================================
 
 BASE_DIR = Path(__file__).parent
-
 CSS_FILE = BASE_DIR / "css" / "style.css"
 LOGO_FILE = BASE_DIR / "assets" / "logo.svg"
 
@@ -31,9 +29,9 @@ LOGO_FILE = BASE_DIR / "assets" / "logo.svg"
 # =====================================
 
 if CSS_FILE.exists():
-    with open(CSS_FILE, encoding="utf-8") as f:
+    with CSS_FILE.open(encoding="utf-8") as css_file:
         st.markdown(
-            f"<style>{f.read()}</style>",
+            f"<style>{css_file.read()}</style>",
             unsafe_allow_html=True
         )
 
@@ -42,68 +40,44 @@ if CSS_FILE.exists():
 # =====================================
 
 if "messages" not in st.session_state:
-
     st.session_state.messages = load_chat()
+
 # =====================================
 # SIDEBAR
 # =====================================
 
 with st.sidebar:
-
     if LOGO_FILE.exists():
         st.image(str(LOGO_FILE), width=160)
 
     st.markdown("## MIRHAJ AI")
-
-    st.caption("Offline AI Workspace")
-
+    st.caption("Local AI Workspace")
     st.divider()
 
     model = st.selectbox(
         "🧠 Model",
         [
             "qwen2.5-coder:3b",
-            "qwen3:0.6b"
-        ]
+            "qwen3:0.6b",
+        ],
     )
 
-    memory = st.slider(
-        "💾 Memory",
-        1,
-        10,
-        5
-    )
+    memory = st.slider("💾 Recent messages to include", 1, 10, 5)
 
     st.divider()
-
-    st.success(
-        f"""
-### Current Model
-
-**{model}**
-
-Memory : **{memory}**
-"""
+    st.markdown(
+        f"### Current Model\n\n**{model}**\n\n"
+        f"History window: **{memory} messages**"
     )
 
-    if st.button(
-        "🗑 Clear Chat",
-        use_container_width=True
-    ):
+    if st.button("🗑 Clear Chat", use_container_width=True):
         st.session_state.messages = []
+        save_chat(st.session_state.messages)
         st.rerun()
 
     st.divider()
-
     st.markdown("### Powered By")
-
-    st.markdown("""
-🟣 Streamlit
-
-➕
-
-🦙 Ollama
-""")
+    st.markdown("🟣 Streamlit\n\n🦙 Ollama")
 
 # =====================================
 # HERO
@@ -112,30 +86,23 @@ Memory : **{memory}**
 st.markdown(
     """
 <div class="hero">
-
-<h1>MIRHAJ AI STUDIO</h1>
-
-<p>
-Offline • Private • Fast
-</p>
-
+  <h1>MIRHAJ AI STUDIO</h1>
+  <p>Local inference • Model choice • Chat history</p>
 </div>
 """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 # =====================================
-# WELCOME SCREEN
+# CHAT HISTORY
 # =====================================
 
-if len(st.session_state.messages) == 0:
-
+if not st.session_state.messages:
     st.info(
         """
-### 👋 Welcome
+### Welcome
 
 Try asking:
-
 - سلام، خودت را معرفی کن
 - Build a Login Page in React
 - Explain Python Decorators
@@ -143,60 +110,45 @@ Try asking:
 """
     )
 
-# =====================================
-# SHOW CHAT
-# =====================================
-
 for message in st.session_state.messages:
-
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
 # =====================================
-# INPUT
+# CHAT INPUT AND RESPONSE
 # =====================================
 
 prompt = st.chat_input("Ask anything...")
 
-# =====================================
-# CHAT
-# =====================================
-
 if prompt:
-
-    st.session_state.messages.append(
-        {
-            "role": "user",
-            "content": prompt
-        }
-    )
+    st.session_state.messages.append({"role": "user", "content": prompt})
     save_chat(st.session_state.messages)
 
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    history = st.session_state.messages[-memory:]
+    # Use prior messages as context; core.chat adds the system prompt itself.
+    history = st.session_state.messages[:-1][-memory:]
 
-with st.chat_message("assistant"):
-
-    with st.spinner("Mirhaj AI is thinking..."):
-
-        with Timer() as t:
-            history = []
-
-            response = ask(
-                model_name=model,
-                history=history,
-                user_message=prompt
-            )
-
-        st.markdown(response)
-        st.caption(f"⚡ Response Time : {t.elapsed} sec")
-        st.session_state.messages.append(
-        {
-            "role": "assistant",
-            "content": response
-        }
-    )
-
-    save_chat(st.session_state.messages)
+    with st.chat_message("assistant"):
+        with st.spinner("Mirhaj AI is thinking..."):
+            try:
+                with Timer() as timer:
+                    response = ask(
+                        model_name=model,
+                        history=history,
+                        user_message=prompt,
+                    )
+            except Exception as exc:
+                st.error(
+                    "Could not get a response from Ollama. Check that Ollama "
+                    "is running and the selected model is installed."
+                )
+                st.caption(f"Technical detail: {exc}")
+            else:
+                st.markdown(response)
+                st.caption(f"Response time: {timer.elapsed} sec")
+                st.session_state.messages.append(
+                    {"role": "assistant", "content": response}
+                )
+                save_chat(st.session_state.messages)

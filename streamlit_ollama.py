@@ -40,7 +40,19 @@ if CSS_FILE.exists():
 # =====================================
 
 if "messages" not in st.session_state:
-    st.session_state.messages = load_chat()
+    try:
+        st.session_state.messages = load_chat()
+        st.session_state.history_load_error = None
+    except RuntimeError as exc:
+        st.session_state.messages = []
+        st.session_state.history_load_error = str(exc)
+
+if st.session_state.get("history_load_error"):
+    st.warning(
+        "Saved chat history could not be loaded. A recovery copy may have "
+        "been created; check the details below before continuing."
+    )
+    st.caption(st.session_state.history_load_error)
 
 # =====================================
 # SIDEBAR

@@ -1,15 +1,20 @@
- <div align="center">
+<div align="center">
+
+<img src="assets/logo.png" alt="Mirhaj AI Studio logo" width="112" />
 
 # Local Coding Assistant
 
-### Exploring Local LLMs for Coding Workflows
+### A local-first coding assistant experiment
 
-An experimental Python project exploring a coding assistant powered by Ollama, with a terminal entry point and a Streamlit-based interface.
+Explore local language models through a Python terminal interface and a Streamlit chat UI, powered by [Ollama](https://ollama.com/).
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![Ollama](https://img.shields.io/badge/Ollama-0B1220?style=flat-square)
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)
-![Local AI](https://img.shields.io/badge/Local%20AI-06B6D4?style=flat-square)
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/Ollama-173D2B?style=flat-square" alt="Ollama" />
+  <img src="https://img.shields.io/badge/Local%20LLM-2F855A?style=flat-square" alt="Local LLM" />
+  <img src="https://img.shields.io/badge/Status-Experimental-B7791F?style=flat-square" alt="Experimental" />
+</p>
 
 [Overview](#overview) · [Architecture](#architecture) · [Setup](#getting-started) · [Limitations](#current-limitations) · [Security](#privacy-and-security)
 
@@ -19,197 +24,150 @@ An experimental Python project exploring a coding assistant powered by Ollama, w
 
 ## Overview
 
-Local Coding Assistant is an experimental project for interacting with a locally hosted language model through Ollama.
+**Local Coding Assistant** is an experimental Python project for trying locally hosted language models in coding-oriented workflows. It includes two entry points:
 
-The repository includes:
+- **Terminal:** a lightweight command-line chat loop in `main.py`.
+- **Web UI:** a Streamlit interface in `streamlit_ollama.py`, with model selection and JSON-backed conversation history.
 
-* A Python terminal entry point.
-* A Streamlit-based user interface.
-* A default model configuration using `qwen2.5-coder:3b`.
-* Local JSON-based chat-history functionality.
+The project is intended for learning and experimentation. It has **not** been verified as production-ready, and the complete app has not yet been validated end to end on a clean machine.
 
-The project explores local inference and coding-assistant workflows. It is a learning project, not yet a verified production-ready assistant.
+## Features at a glance
 
-### Project at a glance
-
-| Area | Current implementation |
+| Capability | What the repository currently includes |
 |---|---|
-| Terminal | Python entry point (`main.py`) |
-| Web interface | Streamlit (`streamlit_ollama.py`) |
-| Inference | Ollama running locally |
-| Default terminal model | `qwen2.5-coder:3b` |
-| Additional UI model option | `qwen3:0.6b` |
-| Chat history | Local JSON file |
+| Two interfaces | Python terminal and Streamlit web UI |
+| Local inference | Connects to an Ollama service at `localhost:11434` by default |
+| Model choice in the UI | `qwen2.5-coder:3b` and `qwen3:0.6b` |
+| Terminal default | `qwen2.5-coder:3b` |
+| Chat history | JSON-backed history for the Streamlit interface |
+| Configurable context | UI control for the number of recent messages included |
+| Error feedback | Basic handling for Ollama/model errors and unreadable saved history |
 
-> **Status:** Experimental. Runtime behavior still needs end-to-end verification.
-
-## Why Local Models?
-
-Local inference can offer useful development and experimentation options:
-
-* Model requests can be sent to a local inference server.
-* Model selection can be adjusted to suit available hardware.
-* A local setup can reduce reliance on a hosted inference provider.
-
-However, **local execution alone does not guarantee complete privacy or security**. Behavior depends on the model, application, logs, network configuration, and other services involved.
+> Model identifiers describe the application's configuration; they do not confirm that a model is already installed on your computer.
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-    U[User] --> T[Terminal Interface]
-    U --> S[Streamlit Interface]
-    T --> P[Python Application]
-    S --> P
-    P --> O[Local Ollama Service]
-    O --> M[Selected Local Model]
-    S --> H[(JSON Chat History)]
+    U[User] --> T[Python terminal: main.py]
+    U --> S[Streamlit UI]
+    T --> O[Local Ollama service]
+    S --> C[Python chat layer]
+    C --> O
+    O --> M[Selected model]
+    S --> H[(Local JSON chat history)]
+
+    classDef app fill:#173D2B,stroke:#58A67A,color:#FFFFFF
+    classDef local fill:#E7F4EA,stroke:#2F855A,color:#173D2B
+    class T,S,C app
+    class O,M,H local
 ```
 
-The diagram summarizes the intended component relationships. It does not certify that every interaction has passed runtime testing.
-
-## Requirements
-
-* Python compatible with the repository's dependencies.
-* Ollama installed and running.
-* A model supported by the local Ollama installation.
-* Sufficient memory and processing capacity for the selected model.
-
-Local model performance depends on model size, quantization, available RAM, CPU, GPU support, and other applications running at the same time.
+This is a high-level map of the code paths, not a claim that every path has passed runtime testing.
 
 ## Getting Started
 
-### 1. Clone the Repository
+### 1. Prerequisites
+
+- Python version compatible with the packages in `requirements.txt`.
+- [Ollama](https://ollama.com/) installed and running.
+- Enough available memory and CPU/GPU capacity for the model you choose.
+
+### 2. Clone the repository
 
 ```bash
 git clone https://github.com/amirreza91-13/Local-Coding-Assistant.git
 cd Local-Coding-Assistant
 ```
 
-### 2. Prepare Python Dependencies
+### 3. Create a virtual environment and install dependencies
 
-Create and activate a virtual environment.
-
-Windows PowerShell:
+**Windows PowerShell**
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-```
-
-Install the dependencies pinned in the repository:
-
-```bash
 python -m pip install -r requirements.txt
 ```
 
-For reproducible setup, use a supported Python version and a virtual environment.
-
-### 3. Start Ollama
-
-Install Ollama using its official installation instructions and start the local service.
-
-Check whether the CLI is available:
-
-```bash
-ollama --version
-```
-
-If the project is configured to use `qwen2.5-coder:3b`, obtain the model:
+### 4. Download the default model
 
 ```bash
 ollama pull qwen2.5-coder:3b
-```
-
-Verify that the model is available:
-
-```bash
 ollama list
 ```
 
-Model availability, memory requirements, and response speed depend on the local environment.
+If you prefer another model, confirm that it is available in Ollama and selectable in the app.
 
-### 4. Run the Terminal Interface
+### 5. Start an interface
 
-The repository's terminal entry point is `main.py`:
+**Terminal**
 
 ```bash
 python main.py
 ```
 
-### 5. Run the Streamlit Interface
-
-The repository also includes `streamlit_ollama.py`:
+**Streamlit web UI**
 
 ```bash
 streamlit run streamlit_ollama.py
 ```
 
-The Streamlit code references the CSS and logo files included in `assets/`. The interface still needs runtime validation in an environment with the declared dependencies and Ollama models installed.
+The Streamlit interface should open in your browser. Its CSS and logo are loaded from the repository's `assets/` directory.
 
 ## Configuration
 
-The reviewed terminal entry point uses the local Ollama endpoint:
+The reviewed terminal entry point defaults to:
 
-```text
-http://localhost:11434
-```
+| Setting | Default |
+|---|---|
+| Ollama endpoint | `http://localhost:11434` |
+| Terminal model | `qwen2.5-coder:3b` |
+| Streamlit model options | `qwen2.5-coder:3b`, `qwen3:0.6b` |
 
-It also defaults to the model:
-
-```text
-qwen2.5-coder:3b
-```
-
-Verify these values in the current source before changing the model or endpoint. Keep local service configuration explicit and avoid exposing the Ollama API to untrusted networks.
+Review the source before changing these values. Do not expose the Ollama API to an untrusted network without an intentional, secured deployment design.
 
 ## Current Limitations
 
-The project is experimental and needs additional validation.
+This is an active learning project. The following work remains before making stronger reliability claims:
 
-Areas requiring attention include:
+- Run both interfaces on a clean environment with documented dependency versions.
+- Verify CSS/logo rendering and the full Streamlit chat flow.
+- Test saved-history recovery, clearing, and persistence across restarts.
+- Exercise missing-model, stopped-service, and malformed-response scenarios.
+- Add automated tests for the primary user flows.
+- Review context handling, long conversations, and error reporting.
+- Add a declared license before describing the project as licensed for reuse.
 
-* Verifying CSS and logo loading in the Streamlit interface at runtime.
-* Testing chat-history persistence and recovery when the saved JSON is unreadable.
-* Checking conversation state and response rendering.
-* Handling unavailable models and Ollama connection errors.
-* Testing long conversations and unexpected model responses.
-* Documenting dependencies and supported runtime versions.
-* Adding automated tests for the main interaction flow.
-
-These are known development concerns, not a claim that every part of the application is broken.
+These are validation tasks, not a claim that every listed area is currently broken.
 
 ## Privacy and Security
 
-* Do not send sensitive source code or credentials to a model unless you understand the data flow.
-* Keep the Ollama service on a trusted local interface unless remote access is deliberately secured.
-* Protect saved chat-history files.
-* Review logs and persistent storage before describing the application as fully private.
-* Remember that external tools, extensions, or integrations can change where data is sent.
+Local inference can reduce dependence on hosted model APIs, but **running locally does not automatically guarantee complete privacy or security**.
 
-## Future Development
+- Keep Ollama bound to a trusted local interface unless remote access is deliberately secured.
+- Protect local conversation-history files; they may contain code or personal information.
+- Avoid entering credentials, API keys, or sensitive source code into a chat unless you understand how the application stores and processes it.
+- Review dependencies, logs, and any future integrations before using the app with sensitive data.
 
-Potential improvements include:
+## Roadmap
 
-* A more reliable chat interface.
-* Configurable model selection.
-* Better conversation-history management and recovery.
-* Clear error messages and connection-status indicators.
-* Code-context input and file-aware workflows.
-* Tests and documentation for supported features.
-
-These are potential directions, not promises of features already implemented.
+- [ ] Validate terminal and Streamlit flows end to end.
+- [ ] Add automated tests for chat-history persistence and error paths.
+- [ ] Improve connection and model-status feedback.
+- [ ] Document supported Python and dependency versions.
+- [ ] Consider code-context and file-aware workflows after core reliability improves.
 
 ## License
 
-Check the repository for a declared license before reusing or redistributing this project.
+No `LICENSE` file was found in the repository when this README was reviewed. Until a license is added, do not assume the project is licensed for reuse or redistribution.
 
 ---
 
 <div align="center">
 
-**Experimenting with local models. Improving one workflow at a time.**
+**Build locally. Test carefully. Improve one workflow at a time.**
 
-[Repository](https://github.com/amirreza91-13/Local-Coding-Assistant)
+[Repository](https://github.com/amirreza91-13/Local-Coding-Assistant) · [Report an issue](https://github.com/amirreza91-13/Local-Coding-Assistant/issues)
 
 </div>

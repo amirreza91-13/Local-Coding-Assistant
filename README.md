@@ -6,10 +6,10 @@
 
 An experimental Python project exploring a coding assistant powered by Ollama, with a terminal entry point and a Streamlit-based interface.
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
-![Ollama](https://img.shields.io/badge/Ollama-0B1220?style=for-the-badge)
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge\&logo=streamlit\&logoColor=white)
-![Local AI](https://img.shields.io/badge/Local%20AI-06B6D4?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-0B1220?style=flat-square)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)
+![Local AI](https://img.shields.io/badge/Local%20AI-06B6D4?style=flat-square)
 
 [Overview](#overview) · [Architecture](#architecture) · [Setup](#getting-started) · [Limitations](#current-limitations) · [Security](#privacy-and-security)
 

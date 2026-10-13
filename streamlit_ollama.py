@@ -21,8 +21,8 @@ st.set_page_config(
 # =====================================
 
 BASE_DIR = Path(__file__).parent
-CSS_FILE = BASE_DIR / "css" / "style.css"
-LOGO_FILE = BASE_DIR / "assets" / "logo.svg"
+CSS_FILE = BASE_DIR / "assets" / "css" / "style.css"
+LOGO_FILE = BASE_DIR / "assets" / "logo.png"
 
 # =====================================
 # LOAD CSS

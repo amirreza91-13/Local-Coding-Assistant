@@ -139,7 +139,7 @@ The repository also includes `streamlit_ollama.py`:
 streamlit run streamlit_ollama.py
 ```
 
-The interface may require fixes before it runs correctly. In particular, the existing code was found to reference CSS and logo paths that do not match the reviewed asset locations.
+The Streamlit code references the CSS and logo files included in `assets/`. The interface still needs runtime validation in an environment with the declared dependencies and Ollama models installed.
 
 ## Configuration
 
@@ -163,7 +163,7 @@ The project is experimental and needs additional validation.
 
 Areas requiring attention include:
 
-* Correcting CSS and image asset paths in the Streamlit interface.
+* Verifying CSS and logo loading in the Streamlit interface at runtime.
 * Verifying chat-history persistence across interactions.
 * Checking conversation state and response rendering.
 * Handling unavailable models and Ollama connection errors.

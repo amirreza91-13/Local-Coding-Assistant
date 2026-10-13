@@ -84,6 +84,7 @@ with st.sidebar:
 
     if st.button("🗑 Clear Chat", use_container_width=True):
         st.session_state.messages = []
+        st.session_state.history_load_error = None
         save_chat(st.session_state.messages)
         st.rerun()
 
@@ -135,6 +136,7 @@ prompt = st.chat_input("Ask anything...")
 if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
     save_chat(st.session_state.messages)
+    st.session_state.history_load_error = None
 
     with st.chat_message("user"):
         st.markdown(prompt)

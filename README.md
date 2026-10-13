@@ -11,7 +11,7 @@ An experimental Python project exploring a coding assistant powered by Ollama, w
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge\&logo=streamlit\&logoColor=white)
 ![Local AI](https://img.shields.io/badge/Local%20AI-06B6D4?style=for-the-badge)
 
-[Overview](#overview) · [Requirements](#requirements) · [Setup](#getting-started) · [Limitations](#current-limitations)
+[Overview](#overview) · [Architecture](#architecture) · [Setup](#getting-started) · [Limitations](#current-limitations) · [Security](#privacy-and-security)
 
 </div>
 
@@ -28,7 +28,20 @@ The repository includes:
 * A default model configuration using `qwen2.5-coder:3b`.
 * Local JSON-based chat-history functionality.
 
-The project explores local inference and coding-assistant workflows. Its interface and conversation-handling behavior still require validation and improvement.
+The project explores local inference and coding-assistant workflows. It is a learning project, not yet a verified production-ready assistant.
+
+### Project at a glance
+
+| Area | Current implementation |
+|---|---|
+| Terminal | Python entry point (`main.py`) |
+| Web interface | Streamlit (`streamlit_ollama.py`) |
+| Inference | Ollama running locally |
+| Default terminal model | `qwen2.5-coder:3b` |
+| Additional UI model option | `qwen3:0.6b` |
+| Chat history | Local JSON file |
+
+> **Status:** Experimental. Runtime behavior still needs end-to-end verification.
 
 ## Why Local Models?
 
@@ -42,25 +55,18 @@ However, **local execution alone does not guarantee complete privacy or security
 
 ## Architecture
 
-```text
-User
- |
- +---- Terminal Interface
- |
- +---- Streamlit Interface
-          |
-          v
-     Python Application
-          |
-          +---- Ollama API
-          |       |
-          |       v
-          |   Local Model
-          |
-          +---- Local JSON Chat History
+```mermaid
+flowchart TD
+    U[User] --> T[Terminal Interface]
+    U --> S[Streamlit Interface]
+    T --> P[Python Application]
+    S --> P
+    P --> O[Local Ollama Service]
+    O --> M[Selected Local Model]
+    S --> H[(JSON Chat History)]
 ```
 
-This is a conceptual representation of the intended components, not a claim that every interaction currently works correctly.
+The diagram summarizes the intended component relationships. It does not certify that every interaction has passed runtime testing.
 
 ## Requirements
 
@@ -91,13 +97,13 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-Install dependencies using the repository's dependency file, if provided:
+Install the dependencies pinned in the repository:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-If the repository does not include `requirements.txt`, inspect the imports and project documentation to determine the correct dependency list.
+For reproducible setup, use a supported Python version and a virtual environment.
 
 ### 3. Start Ollama
 
@@ -164,7 +170,7 @@ The project is experimental and needs additional validation.
 Areas requiring attention include:
 
 * Verifying CSS and logo loading in the Streamlit interface at runtime.
-* Verifying chat-history persistence across interactions.
+* Testing chat-history persistence and recovery when the saved JSON is unreadable.
 * Checking conversation state and response rendering.
 * Handling unavailable models and Ollama connection errors.
 * Testing long conversations and unexpected model responses.
@@ -187,7 +193,7 @@ Potential improvements include:
 
 * A more reliable chat interface.
 * Configurable model selection.
-* Better conversation-history management.
+* Better conversation-history management and recovery.
 * Clear error messages and connection-status indicators.
 * Code-context input and file-aware workflows.
 * Tests and documentation for supported features.
